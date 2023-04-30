@@ -23,13 +23,10 @@ int main(){
 
 
 void criaLivro (tLivro *livro){
-    char aux[101];
     printf("Digite titulo \n");
-    scanf(" %101[^\n]", aux);
-    strcmp (livro->nome, aux);
+    fgets(livro->nome, 101, stdin);
     printf("Digite autor \n");
-    scanf(" %101[^\n]", aux);
-    strcmp (livro->autor, aux);
+    scanf("%101[^\n]", livro->autor);
     printf("Digite edição \n");
     scanf(" %d", &livro->edicao);
     printf("Digite numero de páginas \n");
@@ -37,7 +34,8 @@ void criaLivro (tLivro *livro){
 }
 
 void imprimeLivro (tLivro livro){
-    printf("Titulo: %s \n", livro.nome);
+    printf("\n***********************\n");
+    printf("Titulo: %s", livro.nome); //fgets adiciona o \n na string, então não precisa do \n aqui de novo
     printf("Autor: %s \n", livro.autor);
     printf("Edição: %d \n", livro.edicao);
     printf("numero de páginas: %d \n", livro.numPag);
