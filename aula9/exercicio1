@@ -1,0 +1,36 @@
+#include <stdio.h>
+#include <stdlib.h>
+#include <math.h>
+
+int main(){
+    float *notas, nota, quadrado, desvio = 0, media = 0;
+    int i, qtd = 0;
+    notas = (float *) malloc(sizeof(float));
+    scanf("%f", &nota);
+
+    while(nota > 0){
+        qtd++;
+        media += nota; 
+        notas[qtd] = nota;
+        notas = realloc(notas, (qtd  + 1)* sizeof(float));
+        scanf("%f", &nota);
+    }
+    if(media > 0)
+        media = media / qtd;
+    else
+        media = 0;
+    for(i = 0; i < qtd; i++){
+        quadrado += pow((notas[i] - media), 2 );
+    }
+    if (desvio > 0)
+        desvio = desvio / qtd;
+    else
+        desvio = 0;
+    desvio = sqrt(desvio);
+
+    printf("Média = %.2f \n",media );
+    printf("Desvio padrão = %.2f \n", desvio);
+
+    free(notas);
+    return 0;
+}
