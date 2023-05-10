@@ -3,8 +3,8 @@
 
 typedef struct{
     char nome[101];
-    char data[10];
-    char CPF[14];
+    char data[11];
+    char CPF[15];
 }tPessoa;
 
 tPessoa lePessoa();
@@ -24,12 +24,15 @@ int main(){
         pessoas[qtd] = lePessoa();
         qtd++;
         pessoas = realloc(pessoas, (qtd + 1) * sizeof(tPessoa));
+        printf("Digite 1 para cadastrar mais uma pessoa e 0 para encerrar \n");
         scanf("%d", &opcao);
     }
+
     for(i = 0; i < qtd; i++){
         imprimePessoa(pessoas[i]);
     }
-
+    
+    printf("Programa encerrado");
     return 0;
 }
 
@@ -37,9 +40,12 @@ int main(){
 tPessoa lePessoa(){
     tPessoa pessoa;
     int i, num;
-    scanf("%s", pessoa.nome);
-    scanf("%s", pessoa.data);
-    scanf("%s", pessoa.CPF);
+    printf("nome: ");
+    scanf("%*c%101[^\n]", pessoa.nome);
+    printf("Data de nascimeento: ");
+    scanf("%*c%11[^\n]", pessoa.data);
+    printf("CPF: ");
+    scanf("%*c%15[^\n]", pessoa.CPF);
     return pessoa;
 }
 
