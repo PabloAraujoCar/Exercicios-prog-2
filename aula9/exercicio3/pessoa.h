@@ -2,10 +2,12 @@
 #define _PESSOA_H
 
 typedef struct tPessoa tPessoa;
-typedef tPessoa* ptPessoa;
 
-struct tPessoa lePessoa();
-void imprimePessoa(tPessoa* pessoa);
+tPessoa* alocaPonteiroPessoa();
+tPessoa* realocaPonteiroPessoa(tPessoa *p, int tam);
+void liberaPessoa(tPessoa *p);
+void lePessoa(tPessoa *p, int num);
+void imprimePessoa(tPessoa *p, int num);
 
 
 #endif

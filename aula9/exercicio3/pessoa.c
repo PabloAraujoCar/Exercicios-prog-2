@@ -1,5 +1,6 @@
 #include "pessoa.h"
 #include <stdlib.h>
+#include <stdio.h>
 struct tPessoa{
     char nome[101];
     char data[11];
@@ -13,21 +14,30 @@ tPessoa* alocaPonteiroPessoa(){
 }
 
 tPessoa* realocaPonteiroPessoa(tPessoa *p, int tam){
-    p = realloc(p, tam * sizeof(tPessoa));
+    p = (tPessoa *) realloc(p, tam * sizeof(tPessoa));
+    if (p == NULL){
+        printf("ERRO, não tem mais memoria disponivel");
+        exit(1);
+    }
     return p;
 }
 
-tPessoa lePessoa(){
-    tPessoa pessoa;
-    int i, num;
-    scanf("%s", pessoa.nome);
-    scanf("%s", pessoa.data);
-    scanf("%s", pessoa.CPF);
-    return pessoa;
+void liberaPessoa(tPessoa *p){
+    free(p);
 }
 
-void imprimePessoa(tPessoa *p){
-    printf("%s \n", p->nome);
-    printf("%s \n", p->data);
-    printf("%s \n", p->CPF);
+void lePessoa(tPessoa *p, int num){
+    printf("Digite o nome: ");
+    scanf("%s", p[num].nome);
+    printf("Digite a data de nascimento: ");
+    scanf("%s", p[num].data);
+    printf("Digite o CPF: ");
+    scanf("%s", p[num].CPF);
 }
+
+void imprimePessoa(tPessoa *p, int num){
+    printf("Nome: %s \n", p[num].nome);
+    printf("Data: %s \n", p[num].data);
+    printf("CPF: %s \n", p[num].CPF);
+}
+
