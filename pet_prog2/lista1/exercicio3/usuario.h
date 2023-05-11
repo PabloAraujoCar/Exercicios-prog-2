@@ -6,5 +6,7 @@ typedef struct tUsuario tUsuario;
 
 tUsuario* retornaPonteiroUsuario();
 void leUsuario(tUsuario *user);
-void imprimeUsuaraio(tUsuario *user);
+void imprimeUsuario(tUsuario *user);
+void imprimeSoNomeUser(tUsuario *user);
+void liberaUsuario(tUsuario *user);
 #endif

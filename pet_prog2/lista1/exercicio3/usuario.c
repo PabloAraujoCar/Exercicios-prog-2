@@ -7,18 +7,31 @@ struct tUsuario{
     char cpf[15];
 };
 
+//retorna um ponteiro do tipo tUsuario
 tUsuario* retornaPonteiroUsuario(){
-    tUsuario *u;
-    u = (tUsuario *) malloc(sizeof(tUsuario));
-    return u;
+    tUsuario *user;
+    user = (tUsuario *) malloc(sizeof(tUsuario));
+    return user;
 }
 
+//recebe um ponteiro do tipo tUsuario como parametro e 
+//preenche ele com informações lidas da entrada padrão
 void leUsuario(tUsuario *user){
-    scanf("%101[^\n]", user->nome);
-    scanf("%15[^\n]", user->cpf);
+    //printf("Digite o nome do usuario e o CPF: \n");
+    scanf("%*c%101[^' ']%*c", user->nome);
+    scanf("%15[^' ']", user->cpf);
 }
 
-void imprimeUsuaraio(tUsuario *user){
+//recebe um ponteiro do tipo tUsuario como parametro e imprime as informações dele
+void imprimeUsuario(tUsuario *user){
     printf("Nome: %s \n", user->nome);
     printf("CPF: %s \n", user->cpf);
+}
+
+void imprimeSoNomeUser(tUsuario *user){
+    printf("Nome: %s \n", user->nome);
+}
+
+void liberaUsuario(tUsuario *user){
+    free(user);
 }
