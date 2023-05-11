@@ -3,7 +3,7 @@
 #include "conta.h"
 
 int main(){
-    int qtd = 0, i, opcao, numContaA, numContaB;
+    int qtd = 0, i, opcao = 0, numContaA, numContaB;
     float valor;
     tConta *contas;
     contas = retornaPonteiroConta();
