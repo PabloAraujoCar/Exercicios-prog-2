@@ -22,7 +22,7 @@ void time_ler(time *t){
     scanf("%s", t->estado);
 }
 void time_mostrar(time *t){
-    printf("%s [%s]", t->nome, t->estado);
+    printf("%s [%s] \n", t->nome, t->estado);
 }
 void time_destruir(time *t){
     free(t);
