@@ -35,6 +35,7 @@ void lePaciente(tPaciente *paciente){
 
     paciente->lesoes = (tLesao **) malloc(sizeof(tLesao*));
     paciente->numLesoes = 0;
+    paciente->lesao[0] = alocaLesao();
 }
 
 
@@ -50,6 +51,7 @@ void cadastraLesao(tPaciente *p){
     leLesao(p->lesoes[p->numLesoes]);
     p->numLesoes++;
     p->lesoes = (tLesao **) realloc(p->lesoes, (p->numLesoes + 1) * sizeoff(tLesao *));
+    p->lesoes[p->numLesoes] = alocaLesao();
 }
 
 int quantasLesoesPacienteTem (tPaciente *paciente){
@@ -93,7 +95,7 @@ void imprimePaciente(tPaciente *p){
 
 void liberaPaciente(tPaciente *p){
     int i;
-    for(i = 0; i < p->numLesoes; i++){
+    for(i = 0; i <= p->numLesoes; i++){
         liberaLesao(p->lesoes[i]);
     }
     free(p->lesoes);
