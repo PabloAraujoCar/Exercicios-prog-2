@@ -30,13 +30,6 @@ void leLesao(tLesao *lesao){
 
 }
 
-/*retorna 1 se uma função estiver vazia e 0 se não estiver*/
-int verificaSeLesaoVazia(tLesao *lesao){
-    if(lesao->malignidade < 0)
-        return 1;
-    return 0;
-}
-
 /*retorna malignidade da lesão*/
 int retornaMalignidadeLesao(tLesao *lesao){
     return lesao->malignidade;

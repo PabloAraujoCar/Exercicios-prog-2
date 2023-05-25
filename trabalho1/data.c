@@ -17,26 +17,21 @@ tData* criaData(int dia, int mes, int ano){
     data->mes = mes;
     data->ano = ano;
 
-    int maxDias;
-    maxDias = quantosDiasNoMes(data);
-    if(dia > maxDias){
-        data->dia = maxDias;
-    }
-    
     if(mes < 1){
-        printf(" \nMês tem que estar entre 1 e 12");
-        while(data->mes < 1){
-          data->mes = 13 - mes;
-        }
+        //printf(" \nMês tem que estar entre 1 e 12");
+        data->mes = 1;
     }
     if(mes > 12){
-        printf(" \nMês tem que estar entre 1 e 12");
-        data->mes = 12 % 12;
+        //printf(" \nMês tem que estar entre 1 e 12");
+        data->mes = 12;
     }
-    if(dia < 1 || dia > 31){
-        printf("\nDia tem que estar entre 1 e 31");
-        exit(1);
+    if(dia < 1){
+        data->dia = 1
     }
+    if(dia > quantosDiasNoMes(data);){
+        data->dia = maxDias;
+    }
+
     return data;
     
 }
@@ -45,11 +40,11 @@ tData* criaData(int dia, int mes, int ano){
 tData* leData(){
     tData* data;
     int dia, mes, ano;
-    printf("Digite o dia \n");
+    //printf("Digite o dia \n");
     scanf ("%d", &dia);
-    printf("Digite o mês no formato \n")
+    //printf("Digite o mês no formato \n");
     scanf("%d", &mes);
-    printf("Digite o ano \n");
+    //printf("Digite o ano \n");
     scanf("%d", &ano);
 
     data = criaData(dia, mes, ano);
@@ -185,28 +180,35 @@ int anosEntreDatas(tData* data1, tData* data2){
         d2 = d1;
         d1 = aux;
     }
-    while(d1.ano <= d2.ano){
-        if(d1.dia<= d2.dia && d1.mes <= d2.mes){
-            i++;
-        }else{
+    while(1){
+        if(d1.ano >= d2.ano)
             break;
+        if(d1.ano < (d2.ano - 1)){
+            i++;
+        }else if(d1.mes < d2.mes){
+            i++;
+        }else if(d1.mes == d2.mes && d1.dia <=d2.dia){
+            i++
         }
+        d1.ano++;
     }
   return i;
 }
 
-int idade(tData* nascimento){
+int calculaIdade(tData* nascimento){
     int i = 0;
     tData* hoje;
     hoje = dataHoje();
-    if(ehMenor(nascimento, hoje){
+    if(ehMenor(nascimento, hoje) ){
         i = anosEntreDatas(nascimento, hoje);
+        liberaData(hoje);
     }else{
         printf("nascimento tem que anteceder o dia de hoje");
+        liberaData(hoje);
         return -1;
     }
-  
-    liberaData(hoje);
+
+    return i;
 }
 
 void liberaData(tData* data){

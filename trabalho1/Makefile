@@ -1,2 +1,7 @@
-all:
-		gcc -g main.c -o principal
+all: geraos principal 
+
+principal:
+	gcc data.o lesao.o paciente.o main.o -o principal
+
+geraos:
+	gcc -c data.c lesao.c. paciente.c main.c

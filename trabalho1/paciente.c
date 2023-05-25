@@ -1,12 +1,12 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+#include "data.h"
 #include "paciente.h"
-#define ANO_ATUAL 2023
 
 struct tPaciente{
     char nome[101];
-    char dataNacimento[12];
+    tData* nascimento;
     char cartaoSus[19];
     char genero;
     tLesao **lesoes;
@@ -24,7 +24,7 @@ void lePaciente(tPaciente *paciente){
     scanf("%101[^\n]", paciente->nome);
     scanf("%*c"); //limpando buffer
     //printf("Digite data de nascimetno: \n");
-    scanf("%12[^\n]", paciente->dataNacimento);
+    paciente->dataNacimento  = leData();
     scanf("%*c"); //limpando buffer
     //printf("Digite cartão sus \n");
     scanf("%19[^\n]", paciente->cartaoSus);
@@ -35,7 +35,7 @@ void lePaciente(tPaciente *paciente){
 
     paciente->lesoes = (tLesao **) malloc(sizeof(tLesao*));
     paciente->numLesoes = 0;
-    paciente->lesao[0] = alocaLesao();
+    paciente->lesoes[0] = alocaLesao();
 }
 
 
@@ -50,7 +50,7 @@ int EhPacienteCerto(tPaciente *paciente, char cartaoSusEsperado[19]){
 void cadastraLesao(tPaciente *p){
     leLesao(p->lesoes[p->numLesoes]);
     p->numLesoes++;
-    p->lesoes = (tLesao **) realloc(p->lesoes, (p->numLesoes + 1) * sizeoff(tLesao *));
+    p->lesoes = (tLesao **) realloc(p->lesoes, (p->numLesoes + 1) * sizeof(tLesao *));
     p->lesoes[p->numLesoes] = alocaLesao();
 }
 
@@ -59,21 +59,14 @@ int quantasLesoesPacienteTem (tPaciente *paciente){
 }
 
 int retornaIdade(tPaciente *paciente){
-    int idade = 0;
-    idade += 1000 * (paciente->dataNacimento[6] - '0');
-    idade += 100 * (paciente->dataNacimento[7] - '0');
-    idade += 10 * (paciente->dataNacimento[8] - '0');
-    idade += (paciente->dataNacimento[9] - '0');
-
-    idade = ANO_ATUAL - idade;
-    return idade;
+    return calculaIdade(paciente->nascimento);
 }
 
 /*retorna 1 se o paciente tiver que ir pra cirurgia e 0 se não precisar*/
 int pacientePrecisaCirurgia(tPaciente *paciente){
     int j;
     for (j = 0; j < paciente->numLesoes; j++){
-        if (retornaMalignidadeLesao(paciente->lesoes, j) > 50)
+        if (retornaMalignidadeLesao(paciente->lesoes[j]) > 50)
            return 1;
     }
     return 0;
@@ -85,10 +78,8 @@ void imprimePaciente(tPaciente *p){
     //printf("data: %s \n", p.dataNacimento);
     //printf("cartao: %s \n", p.cartaoSus);
     //printf("genero: %c \n", p.genero);
-    for(i = 0; i < 10; i++){
-        if (verificaSeLesaoVazia(p->lesoes, i))
-            break;
-        imprimeIdLesao(p->lesoes, i);
+    for(i = 0; i < p->numLesoes; i++){
+        imprimeIdLesao(p->lesoes[i]);
     }
     printf("\n");
 }
@@ -99,5 +90,6 @@ void liberaPaciente(tPaciente *p){
         liberaLesao(p->lesoes[i]);
     }
     free(p->lesoes);
+    liberaData(p->nascimento);
     free(p);
 }

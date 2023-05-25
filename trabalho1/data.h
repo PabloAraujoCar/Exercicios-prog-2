@@ -3,17 +3,6 @@
  
 typedef struct tData tData;
 
-#include <stdio.h>
-#include <stdlib.h>
-#include <time.h>
-#include "data.h"
-
-struct tData{
-  int dia;
-  int mes;
-  int ano;
-};
-
 /*recebe 3 inteiros (dia, mes, ano) e retorna um tipo tData*/
 tData* criaData(int dia, int mes, int ano);
 
@@ -43,7 +32,7 @@ int diasEntreDatas(tData* data1, tData* data2);
 
 int anosEntreDatas(tData* data1, tData* data2);
 
-int idade(tData* nascimento);
+int calculaIdade(tData* nascimento);
 
 void liberaData(tData* data);
 
