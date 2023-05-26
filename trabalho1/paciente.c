@@ -6,8 +6,9 @@
 
 struct tPaciente{
     char nome[101];
-    tData* nascimento;
     char cartaoSus[19];
+    tData* nascimento;
+    char tel[15];
     char genero;
     tLesao **lesoes;
     int numLesoes;
@@ -20,18 +21,25 @@ tPaciente* alocaPaciente(){
 }
 
 void lePaciente(tPaciente *paciente){
-    //printf("Digite o nome do paciente \n");
+    printf("Digite o nome do paciente \n");
     scanf("%101[^\n]", paciente->nome);
     scanf("%*c"); //limpando buffer
-    //printf("Digite data de nascimetno: \n");
-    paciente->dataNacimento  = leData();
-    scanf("%*c"); //limpando buffer
-    //printf("Digite cartão sus \n");
+
+    printf("Digite cartão sus \n");
     scanf("%19[^\n]", paciente->cartaoSus);
+    scanf("%*c"); //limpandobuffer 
+
+    printf("Digite data de nascimento: \n");
+    paciente->nascimento  = leData();
     scanf("%*c"); //limpando buffer
-    //printf("Digite genero \n");
-    scanf("%c", &paciente->genero);
+
+    printf("Digite o telefone do paciente no formato (00)00000-0000 \n");
+    scanf("%14[^\n]", paciente->tel);
     scanf("%*c");
+
+    printf("Digite genero \n");
+    scanf("%c", &paciente->genero);
+    scanf("%*[^\n]");
 
     paciente->lesoes = (tLesao **) malloc(sizeof(tLesao*));
     paciente->numLesoes = 0;
@@ -75,9 +83,11 @@ int pacientePrecisaCirurgia(tPaciente *paciente){
 void imprimePaciente(tPaciente *p){
     int i;
     printf("- %s - ", p->nome);
-    //printf("data: %s \n", p.dataNacimento);
-    //printf("cartao: %s \n", p.cartaoSus);
-    //printf("genero: %c \n", p.genero);
+    printf("cartao: %s \n", p->cartaoSus);
+    printf("data de nascimento:");
+    imprimeData(p->nascimento);
+    printf("\ntelefone: %s \n", p->tel);
+    printf("genero: %c \n", p->genero);
     for(i = 0; i < p->numLesoes; i++){
         imprimeIdLesao(p->lesoes[i]);
     }

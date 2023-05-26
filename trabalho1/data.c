@@ -26,9 +26,10 @@ tData* criaData(int dia, int mes, int ano){
         data->mes = 12;
     }
     if(dia < 1){
-        data->dia = 1
+        data->dia = 1;
     }
-    if(dia > quantosDiasNoMes(data);){
+    int maxDias = quantosDiasNoMes(data);
+    if(dia > maxDias){
         data->dia = maxDias;
     }
 
@@ -41,14 +42,18 @@ tData* leData(){
     tData* data;
     int dia, mes, ano;
     //printf("Digite o dia \n");
-    scanf ("%d", &dia);
+    scanf ("%d%*c", &dia);
     //printf("Digite o mês no formato \n");
-    scanf("%d", &mes);
+    scanf("%d%*c", &mes);
     //printf("Digite o ano \n");
     scanf("%d", &ano);
 
     data = criaData(dia, mes, ano);
     return data;
+}
+
+void imprimeData(tData *data){
+    printf("%02d/%02d/%04d", data->dia, data->mes, data->ano);
 }
 
 /*recebe um tData e retorna a data do dia seguinte*/
@@ -188,7 +193,7 @@ int anosEntreDatas(tData* data1, tData* data2){
         }else if(d1.mes < d2.mes){
             i++;
         }else if(d1.mes == d2.mes && d1.dia <=d2.dia){
-            i++
+            i++;
         }
         d1.ano++;
     }

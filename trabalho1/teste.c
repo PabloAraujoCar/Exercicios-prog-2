@@ -2,8 +2,9 @@
 #include "paciente.h"
 
 int main(){
-    tPaciente p;
-    p = addPaciente();
+    tPaciente *p;
+    p = alocaPaciente();
+    lePaciente(p);
     imprimePaciente(p);
 
 

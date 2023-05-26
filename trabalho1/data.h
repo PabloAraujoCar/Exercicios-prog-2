@@ -9,6 +9,8 @@ tData* criaData(int dia, int mes, int ano);
 /*Pede para o usuario digitar o dia, mes e ano e retorna o tData correspondente*/
 tData* leData();
 
+void imprimeData(tData *data);
+
 /*recebe um tData e retorna a data do dia seguinte*/
 void incrementaDia(tData* data);
 
