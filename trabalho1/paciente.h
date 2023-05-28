@@ -8,7 +8,10 @@ typedef struct tPaciente tPaciente;
 
 tPaciente* alocaPaciente();
 void lePaciente(tPaciente *paciente);
+void converterParaMaiuscula(char *string);
+void lendoInfosConsulta(tPaciente* p);
 int EhPacienteCerto(tPaciente *paciente, char cartaoSusEsperado[19]);
+int ehMesmoPaciente(tPaciente* p1, tPaciente* p2);
 void cadastraLesao(tPaciente *p);
 int quantasLesoesPacienteTem (tPaciente *paciente);
 int retornaIdade(tPaciente *paciente);

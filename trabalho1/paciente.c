@@ -1,6 +1,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+#include "lesao.h"
 #include "data.h"
 #include "paciente.h"
 
@@ -9,9 +10,17 @@ struct tPaciente{
     char cartaoSus[19];
     tData* nascimento;
     char tel[15];
-    char genero;
+    char genero[10];
     tLesao **lesoes;
     int numLesoes;
+
+    //informações da consulta
+    int diabetes;
+    int fumante;
+    int alergia;
+    char* tipoAlergia;
+    int historicoCancer;
+    char tipoPele[4];
 };
 
 tPaciente* alocaPaciente(){
@@ -34,24 +43,86 @@ void lePaciente(tPaciente *paciente){
     scanf("%*c"); //limpando buffer
 
     printf("Digite o telefone do paciente no formato (00)00000-0000 \n");
-    scanf("%14[^\n]", paciente->tel);
+    scanf("%15[^\n]", paciente->tel);
     scanf("%*c");
 
     printf("Digite genero \n");
-    scanf("%c", &paciente->genero);
-    scanf("%*[^\n]");
+    scanf("%10[^\n]", paciente->genero);
+    scanf("%*c");
 
     paciente->lesoes = (tLesao **) malloc(sizeof(tLesao*));
     paciente->numLesoes = 0;
     paciente->lesoes[0] = alocaLesao();
 }
 
+void converterParaMaiuscula(char *string){
+    int i = 0;
+    while (string[i] != '\0') {
+        if (string[i] >= 'a' && string[i] <= 'z') {
+            string[i] = string[i] - 'a' + 'A';
+        }
+        i++;
+    }
+}
+
+void lendoInfosConsulta(tPaciente* p){
+    char aux[4];
+
+    //vendo se paciente possui diabetes
+    scanf("%4[^\n]", aux);
+    scanf("%*c");
+    converterParaMaiuscula(aux);
+    if( !(strcmp(aux, 'NAO')) ){
+        p->diabetes = 0;
+    }else{
+        p->diabetes = 1;
+    }
+
+    //vendo se paciente é fumante
+    scanf("%4[^\n]", aux);
+    scanf("%*c");
+    converterParaMaiuscula(aux);
+    if( !(strcmp(aux, 'NAO')) ){
+        p->fumante = 0;
+    }else{
+        p->fumante = 1;
+    }
+
+    //vendo se paciente tem alergia
+    scanf("%4[^\n]", aux);
+    scanf("%*c");
+    converterParaMaiuscula(aux);
+    if( !(strcmp(aux, 'NAO')) ){
+        p->alergia = 0;
+    }else{
+        p->alergia = 1;
+        malloc
+    }
+
+    //vendo se paciente tem historico de câncer
+    scanf("%4[^\n]", aux);
+    scanf("%*c");
+    converterParaMaiuscula(aux);
+    if( !(strcmp(aux, 'NAO')) ){
+        p->historicoCancer = 0;
+    }else{
+        p->historicoCancer = 1;
+    } 
+
+    //salvando tipo de pele do paciente
+    scanf("%4[^\n]", p->tipoPele);
+    scanf("%*c");
+}
 
 /*retorna 1 se o cartao do sus do paciente for compativel com o cartao esperado e 0 se não*/
 int EhPacienteCerto(tPaciente *paciente, char cartaoSusEsperado[19]){
     if(strcmp(paciente->cartaoSus, cartaoSusEsperado) )
-        return 0;
-    return 1;
+        return 1;
+    return 0;
+}
+
+int ehMesmoPaciente(tPaciente* p1, tPaciente* p2){
+    return EhPacienteCerto(p1, p2->cartaoSus);
 }
 
 /*recebe um tPaciente e retorna ele com uma nova lesão cadastrada*/
@@ -87,7 +158,7 @@ void imprimePaciente(tPaciente *p){
     printf("data de nascimento:");
     imprimeData(p->nascimento);
     printf("\ntelefone: %s \n", p->tel);
-    printf("genero: %c \n", p->genero);
+    printf("genero: %s \n", p->genero);
     for(i = 0; i < p->numLesoes; i++){
         imprimeIdLesao(p->lesoes[i]);
     }
